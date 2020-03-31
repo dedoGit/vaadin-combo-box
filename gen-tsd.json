@@ -1,0 +1,14 @@
+{
+  "excludeFiles": [
+    "index.html",
+    "wct.conf.js",
+    "demo/**/*",
+    "theme/**/*",
+    "test/**/*"
+  ],
+  "autoImport": {
+    "./src/vaadin-combo-box-data-provider.d.ts": [
+      "ComboBoxDataProvider"
+    ]
+  }
+}

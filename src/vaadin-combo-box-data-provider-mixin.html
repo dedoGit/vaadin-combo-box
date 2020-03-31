@@ -13,6 +13,27 @@ This program is available under Apache License Version 2.0, available at https:/
   Vaadin.ComboBoxDataProviderMixin = superClass => class DataProviderMixin extends superClass {
 
     static get properties() {
+      /**
+       * @typedef DataProviderParams
+       * @type {object}
+       * @property {number} page
+       * @property {number} pageSize
+       * @property {string} filter
+       */
+
+      /**
+       * @typedef DataProviderCallback
+       * @type {function}
+       * @param {unknown[]} items
+       * @param {number} size
+       */
+
+      /**
+       * @typedef DataProvider
+       * @type {function}
+       * @param {DataProvideParams} params
+       * @param {DataProvideCallback} callback
+       */
       return {
 
         /**
@@ -44,6 +65,8 @@ This program is available under Apache License Version 2.0, available at https:/
          * `callback(items, size)` Callback function with arguments:
          *   - `items` Current page of items
          *   - `size` Total number of items.
+         *
+         * @type {ComboBoxDataProvider?}
          */
         dataProvider: {
           type: Object,
@@ -72,6 +95,11 @@ This program is available under Apache License Version 2.0, available at https:/
       ];
     }
 
+    /**
+     * @param {ComboBoxDataProvider?} dataProvider
+     * @param {boolean} opened
+     * @param {string} value
+     */
     _dataProviderClearFilter(dataProvider, opened, value) {
       // Can't depend on filter in this obsever as we don't want
       // to clear the filter whenever it's set
@@ -207,6 +235,10 @@ This program is available under Apache License Version 2.0, available at https:/
       this.clearCache();
     }
 
+    /**
+     * @param {ComboBoxDataProvider?} dataProvider
+     * @param {ComboBoxDataProvider?} oldDataProvider
+     */
     _dataProviderChanged(dataProvider, oldDataProvider) {
       this._ensureItemsOrDataProvider(() => {
         this.dataProvider = oldDataProvider;
@@ -222,6 +254,10 @@ This program is available under Apache License Version 2.0, available at https:/
       }
     }
 
+    /**
+     * @param {ComboBoxDataProvider?} dataProvider
+     * @param {string?} value
+     */
     _warnDataProviderValue(dataProvider, value) {
       if (dataProvider && value !== '' && (this.selectedItem === undefined || this.selectedItem === null)) {
         const valueIndex = this._indexOfValue(value, this.filteredItems);
